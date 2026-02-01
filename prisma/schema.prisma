@@ -1,0 +1,86 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model FinancialRole {
+  id          String @id @default(cuid())
+  name        String @unique
+  displayName String
+  color       String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  transactions Transaction[]
+  categories   Category[]
+  
+  @@map("financial_roles")
+}
+
+model Category {
+  id          String @id @default(cuid())
+  name        String
+  roleId      String
+  type        String   // "INCOME" or "EXPENSE"
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  role        FinancialRole @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  transactions Transaction[]
+  
+  @@unique([roleId, name])
+  @@map("categories")
+}
+
+model Transaction {
+  id          String   @id @default(cuid())
+  amount      Float
+  description String?
+  date        DateTime
+  type        String    // "INCOME" or "EXPENSE"
+  roleId      String
+  categoryId  String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  role        FinancialRole @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  category    Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  
+  @@map("transactions")
+}
+
+model ChamaContribution {
+  id          String   @id @default(cuid())
+  week        String   // Format: YYYY-WXX (e.g., 2024-W05)
+  amount      Float
+  targetAmount Float   @default(250.0)
+  date        DateTime
+  note        String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@unique([week])
+  @@map("chama_contributions")
+}
+
+model WeeklySummary {
+  id            String @id @default(cuid())
+  week          String @unique // Format: YYYY-WXX
+  roleId        String
+  totalIncome   Float  @default(0)
+  totalExpense  Float  @default(0)
+  netIncome     Float  @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  @@unique([week, roleId])
+  @@map("weekly_summaries")
+}
+
