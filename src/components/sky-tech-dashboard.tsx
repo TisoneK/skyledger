@@ -82,7 +82,7 @@ export function SkyTechDashboard() {
   };
 
   const data = mockData;
-  const businessRole = getRoleColor('business');
+  const businessRole = getRoleColor('sky-tech');
 
   const MetricCard = ({ 
     title, 

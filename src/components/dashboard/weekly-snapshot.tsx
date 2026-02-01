@@ -90,15 +90,15 @@ export function WeeklySnapshot() {
     className?: string;
   }) => (
     <Card className={cn("", className)}>
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-1">
         <CardTitle className="text-sm font-medium">{title}</CardTitle>
         <Icon className="h-4 w-4 text-muted-foreground" />
       </CardHeader>
-      <CardContent>
+      <CardContent className="pt-2">
         <div className="text-2xl font-bold">{value}</div>
         {change !== undefined && (
           <div className={cn(
-            "flex items-center text-xs",
+            "flex items-center text-xs mt-1",
             trend === 'up' ? 'text-green-500' : 'text-red-500'
           )}>
             {trend === 'up' ? <ArrowUpRight className="h-3 w-3 mr-1" /> : <ArrowDownRight className="h-3 w-3 mr-1" />}
