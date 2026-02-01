@@ -8,6 +8,11 @@ export const metadata: Metadata = {
   title: 'SkyLedger - Personal Finance Dashboard',
   description: 'Your weekly financial mirror - track income, expenses, and savings across all your financial roles',
   manifest: '/manifest.json',
+  icons: {
+    icon: '/favicon.png',
+    shortcut: '/favicon.png',
+    apple: '/favicon.png',
+  },
 }
 
 export const viewport: Viewport = {

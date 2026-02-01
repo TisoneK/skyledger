@@ -24,8 +24,8 @@ export const roleColors: Record<RoleName | 'all', RoleColorConfig> = {
     background: 'bg-blue-50',
     chart: '#3b82f6',
   },
-  business: {
-    name: 'business',
+  'sky-tech': {
+    name: 'sky-tech',
     displayName: 'Sky Tech',
     primary: '#22c55e',
     light: '#dcfce7',
@@ -46,8 +46,8 @@ export const roleColors: Record<RoleName | 'all', RoleColorConfig> = {
     background: 'bg-amber-50',
     chart: '#f59e0b',
   },
-  sideincome: {
-    name: 'sideincome',
+  'side-income': {
+    name: 'side-income',
     displayName: 'Side Income',
     primary: '#a855f7',
     light: '#faf5ff',
@@ -71,7 +71,12 @@ export const roleColors: Record<RoleName | 'all', RoleColorConfig> = {
 };
 
 export function getRoleColor(role: RoleName | 'all'): RoleColorConfig {
-  return roleColors[role];
+  const config = roleColors[role];
+  if (!config) {
+    // Return a default config if role is not found
+    return roleColors['all'];
+  }
+  return config;
 }
 
 export function getRoleColorClass(role: RoleName | 'all', type: 'text' | 'bg' | 'border' | 'chart'): string {
@@ -93,14 +98,14 @@ export function getRoleColorClass(role: RoleName | 'all', type: 'text' | 'bg' | 
 
 export function getRoleGradient(role: RoleName | 'all'): string {
   const config = getRoleColor(role);
-  return `linear-gradient(135deg, ${config.primary} 0%, ${config.dark} 100%)`;
+  return `linear-gradient(135deg, ${config?.primary || '#6b7280'} 0%, ${config?.dark || '#4b5563'} 100%)`;
 }
 
 export function getRoleBadgeClasses(role: RoleName | 'all'): string {
   const config = getRoleColor(role);
   return `
     inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
-    ${config.background} ${config.text} border ${config.border}/20
+    ${config?.background || 'bg-gray-50'} ${config?.text || 'text-gray-500'} border ${config?.border || '#6b7280'}/20
   `;
 }
 
@@ -108,7 +113,7 @@ export function getRoleCardClasses(role: RoleName | 'all'): string {
   const config = getRoleColor(role);
   return `
     rounded-lg border bg-card p-6 transition-all hover:shadow-md
-    ${config.border}/20 hover:${config.border}/40
+    ${config?.border || '#6b7280'}/20 hover:${config?.border || '#6b7280'}/40
   `;
 }
 
@@ -118,17 +123,17 @@ export function getRoleButtonClasses(role: RoleName | 'all', variant: 'solid' | 
   switch (variant) {
     case 'solid':
       return `
-        bg-${config.primary} text-white hover:bg-${config.dark}
-        focus:ring-2 focus:ring-${config.primary}/50
+        bg-[${config?.primary || '#6b7280'}] text-white hover:bg-[${config?.dark || '#4b5563'}]
+        focus:ring-2 focus:ring-[${config?.primary || '#6b7280'}/50]
       `;
     case 'outline':
       return `
-        border ${config.border} ${config.text} hover:${config.background}
-        focus:ring-2 focus:ring-${config.primary}/50
+        border [${config?.border || '#6b7280'}] ${config?.text || 'text-gray-500'} hover:${config?.background || 'bg-gray-50'}
+        focus:ring-2 focus:ring-[${config?.primary || '#6b7280'}/50]
       `;
     case 'ghost':
       return `
-        ${config.text} hover:${config.background}
+        ${config?.text || 'text-gray-500'} hover:${config?.background || 'bg-gray-50'}
       `;
     default:
       return getRoleButtonClasses(role, 'solid');
@@ -143,9 +148,9 @@ export function getRoleChartColors(role: RoleName | 'all'): {
 } {
   const config = getRoleColor(role);
   return {
-    primary: config.chart,
-    secondary: config.light,
-    background: config.background,
+    primary: config?.chart || '#6b7280',
+    secondary: config?.light || '#f3f4f6',
+    background: config?.background || 'bg-gray-50',
   };
 }
 

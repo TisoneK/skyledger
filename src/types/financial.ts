@@ -1,6 +1,6 @@
 export type TransactionType = 'INCOME' | 'EXPENSE';
 
-export type RoleName = 'personal' | 'business' | 'chama' | 'sideincome';
+export type RoleName = 'personal' | 'sky-tech' | 'chama' | 'side-income';
 
 export interface FinancialRole {
   id: string;

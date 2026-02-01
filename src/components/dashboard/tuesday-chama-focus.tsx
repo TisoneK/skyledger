@@ -138,7 +138,7 @@ export function TuesdayChamaFocus({
 
   const tuesdayMessage = getTuesdayMessage();
   const roleConfig = getRoleCardClasses('chama');
-  const alertConfig = getTuesdayAlertClasses();
+  const alertConfig = getTuesdayAlertClasses(isTuesday);
 
   // Mock recent contributions for demonstration
   const recentContributions: ChamaContribution[] = [

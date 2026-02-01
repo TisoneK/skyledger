@@ -4,6 +4,7 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ThemeToggle } from '@/components/theme-toggle';
+import { SkyLedgerIcon } from '@/components/ui/skyledger-icon';
 import { 
   Wallet, 
   TrendingUp, 
@@ -30,7 +31,7 @@ const roleConfig = [
     borderColor: 'border-blue-200'
   },
   { 
-    name: 'business', 
+    name: 'sky-tech', 
     displayName: 'Sky Tech', 
     icon: TrendingUp, 
     color: 'text-green-500',
@@ -46,7 +47,7 @@ const roleConfig = [
     borderColor: 'border-amber-200'
   },
   { 
-    name: 'sideincome', 
+    name: 'side-income', 
     displayName: 'Side Income', 
     icon: Zap, 
     color: 'text-purple-500',
@@ -114,7 +115,7 @@ export function MainLayout({ children }: MainLayoutProps) {
 
           {/* Enhanced Logo/Title */}
           <div className="flex items-center space-x-2 flex-shrink-0">
-            <div className="h-8 w-8 rounded bg-gradient-to-br from-blue-500 to-purple-600 flex-shrink-0" />
+            <SkyLedgerIcon size={32} alt="SkyLedger" className="flex-shrink-0" />
             <div className="flex flex-col">
               <h1 className="text-xl font-bold text-green-600 leading-tight">SkyLedger</h1>
               <p className="text-xs text-muted-foreground hidden sm:block leading-tight">Your weekly financial mirror</p>
@@ -161,7 +162,7 @@ export function MainLayout({ children }: MainLayoutProps) {
                   aria-label="View all financial roles"
                 >
                   <div className="flex items-center space-x-2">
-                    <div className="h-6 w-6 rounded bg-gradient-to-br from-blue-500 to-purple-600" aria-hidden="true" />
+                    <SkyLedgerIcon size={24} alt="All Roles" decorative />
                     <span className="truncate">All Roles</span>
                   </div>
                 </Button>

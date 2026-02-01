@@ -14,9 +14,11 @@ import {
   ResponsiveContainer,
   PieChart,
   PieChart as RechartsPieChart,
+  Pie,
   Cell,
   LineChart,
   LineChart as RechartsLineChart,
+  Line,
   Legend,
   Area,
   AreaChart as RechartsAreaChart,
@@ -524,7 +526,7 @@ export function useRoleSpecificVisualizationData(roleId: string): RoleSpecificVi
       weeklyTrends: [
         { week: 'W1', income: 3000, expenses: 500, netIncome: 2500 },
         { week: 'W2', income: 3750, expenses: 750, netIncome: 3000 },
-        { week: 'W3', week: 'W3', income: 3250, expenses: 625, netIncome: 2625 },
+        { week: 'W3', income: 3250, expenses: 625, netIncome: 2625 },
         { week: 'W4', income: 4000, expenses: 500, netIncome: 3500 },
       ],
       yearlyComparison: [
@@ -536,5 +538,8 @@ export function useRoleSpecificVisualizationData(roleId: string): RoleSpecificVi
     }
   };
 
-  return mockData[roleId as keyof typeof mockData];
+  return {
+    roleId,
+    data: mockData[roleId as keyof typeof mockData]
+  };
 }

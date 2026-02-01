@@ -70,7 +70,7 @@ export function RoleProvider({
     setCurrentRole(role);
   }, []);
 
-  const getRoleData = useCallback(<T>(key: string) => {
+  const getRoleData = useCallback((key: string) => {
     return roleData[key] || null;
   }, [roleData]);
 
@@ -341,4 +341,3 @@ export function RoleSwitcher({
   );
 }
 
-export { RoleSwitcher, RoleProvider, useRoleContext };
