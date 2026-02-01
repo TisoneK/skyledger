@@ -106,8 +106,8 @@ export function WeekOverWeekComparison({
     return (
       <RoleIcon 
         type={getRoleIconType(roleId)}
-        size={16}
-        className="h-4 w-4"
+        context="card"
+        className="card"
       />
     );
   };

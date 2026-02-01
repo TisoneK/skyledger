@@ -164,8 +164,8 @@ export function MainLayout({ children }: MainLayoutProps) {
                   <div className="flex items-center space-x-2">
                     <RoleIcon 
                       type="all-roles"
-                      size={24}
-                      className={cn("h-6 w-6", selectedRole === 'all' && "text-green-600")}
+                      context="sidebar"
+                      className={cn("sidebar", selectedRole === 'all' && "text-green-600")}
                     />
                     <span className="truncate">All Roles</span>
                   </div>
@@ -187,8 +187,8 @@ export function MainLayout({ children }: MainLayoutProps) {
                       <div className="flex items-center space-x-2">
                         <RoleIcon 
                           type={role.name as any}
-                          size={24}
-                          className={cn("h-6 w-6", selectedRole === role.name && role.color)}
+                          context="sidebar"
+                          className={cn("sidebar", selectedRole === role.name && role.color)}
                         />
                         <span className="truncate">{role.displayName}</span>
                       </div>

@@ -147,8 +147,8 @@ export function WeeklySnapshot() {
           <div className="flex items-center space-x-2">
             <RoleIcon 
               type={getRoleIconType(role.name)}
-              size={16}
-              className={cn("h-4 w-4", roleConfig.text)}
+              context="card"
+              className={cn("card", roleConfig.text)}
             />
             <CardTitle className="text-sm font-medium">{role.displayName}</CardTitle>
           </div>
