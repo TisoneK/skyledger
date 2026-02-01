@@ -67,12 +67,23 @@ src/
 ├── app/                 # Next.js app router pages
 ├── components/          # React components
 │   ├── ui/             # Reusable UI components
+│   │   ├── role-icon.tsx    # Centralized role icon component
+│   │   └── __tests__/       # Component tests
 │   ├── dashboard/      # Dashboard components
 │   ├── charts/         # Chart components
 │   └── layout/         # Layout components
 ├── lib/                # Utility functions
 ├── stores/             # Zustand state management
 └── types/              # TypeScript type definitions
+
+public/
+├── icons/
+│   └── roles/          # Role-specific PNG icons
+│       ├── personal.png
+│       ├── chama.png
+│       ├── side-income.png
+│       ├── sky-tech.png
+│       └── all-roles.png
 ```
 
 ## 🎯 Features
@@ -125,6 +136,10 @@ The database includes:
 - **Weekly Summaries**: Aggregated weekly data
 
 ## 🎨 Customization
+
+### Role Icons
+
+SkyLedger uses a centralized role icon system. See [RoleIcon Usage Guide](docs/role-icon-usage.md) for detailed documentation.
 
 ### Adding New Categories
 

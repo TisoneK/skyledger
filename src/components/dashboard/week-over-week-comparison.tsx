@@ -2,20 +2,21 @@
 
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import { 
-  TrendingUp, 
-  TrendingDown, 
-  Minus, 
-  Calendar, 
+  TrendingUp,
+  TrendingDown,
   ArrowLeft, 
   ArrowRight,
   BarChart3,
   DollarSign,
   PiggyBank,
-  Briefcase
+  Briefcase,
+  Minus,
+  Calendar
 } from 'lucide-react';
+import { RoleIcon } from '@/components/ui/role-icon';
 import { getRoleCardClasses } from '@/lib/role-colors';
 
 interface WeekData {
@@ -91,18 +92,24 @@ export function WeekOverWeekComparison({
   const overallNetIncomeChange = calculateChange(data.currentWeek.netIncome, data.previousWeek.netIncome);
 
   const getRoleIcon = (roleId: string) => {
-    switch (roleId) {
-      case 'personal':
-        return <DollarSign className="h-4 w-4" />;
-      case 'sky-tech':
-        return <Briefcase className="h-4 w-4" />;
-      case 'chama':
-        return <PiggyBank className="h-4 w-4" />;
-      case 'side-income':
-        return <TrendingUp className="h-4 w-4" />;
-      default:
-        return <BarChart3 className="h-4 w-4" />;
-    }
+    // Map role names to RoleIcon types
+    const getRoleIconType = (roleName: string) => {
+      switch (roleName) {
+        case 'personal': return 'personal';
+        case 'sky-tech': return 'sky-tech';
+        case 'chama': return 'chama';
+        case 'side-income': return 'side-income';
+        default: return 'personal';
+      }
+    };
+
+    return (
+      <RoleIcon 
+        type={getRoleIconType(roleId)}
+        size={16}
+        className="h-4 w-4"
+      />
+    );
   };
 
   return (

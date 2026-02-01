@@ -117,7 +117,7 @@ ${transaction.note ? `Note: ${transaction.note}` : ''}
   };
 
   const handleShare = async () => {
-    if (navigator.share && onShare) {
+    if (typeof navigator.share !== 'undefined' && onShare) {
       try {
         await onShare(transaction);
       } catch (error) {
@@ -181,7 +181,7 @@ ${transaction.note ? `Note: ${transaction.note}` : ''}
           </Button>
         )}
         
-        {(onShare || navigator.share) && (
+        {(onShare || typeof navigator.share !== 'undefined') && (
           <Button
             variant="ghost"
             size="sm"
@@ -501,7 +501,7 @@ export function TransactionActionMenu({
               </Button>
             )}
             
-            {(onShare || navigator.share) && (
+            {(onShare || typeof navigator.share !== 'undefined') && (
               <Button
                 variant="ghost"
                 size="sm"

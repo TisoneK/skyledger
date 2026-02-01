@@ -1,11 +1,10 @@
-'use client';
-
 import React from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { SkyLedgerIcon } from '@/components/ui/skyledger-icon';
+import { RoleIcon } from '@/components/ui/role-icon';
 import { 
   Wallet, 
   TrendingUp, 
@@ -21,54 +20,6 @@ import {
 import { useUIStore } from '@/stores/ui-store';
 import { cn } from '@/lib/utils';
 import { useRealTimeDate } from '@/hooks/use-real-time-date';
-
-// Icon mapping object with role-to-PNG-path associations
-const iconMapping = {
-  all: '/icons/sidebar/all-roles.png',
-  personal: '/icons/sidebar/personal.png',
-  'sky-tech': '/icons/sidebar/sky-tech.png',
-  chama: '/icons/sidebar/chama.png',
-  'side-income': '/icons/sidebar/side-income.png',
-};
-
-// Fallback Lucide icons
-const fallbackIcons = {
-  all: Wallet,
-  personal: Wallet,
-  'sky-tech': TrendingUp,
-  chama: Users,
-  'side-income': Zap,
-};
-
-// CustomIcon component with error handling and fallback
-interface CustomIconProps {
-  roleName: string;
-  className?: string;
-  isSelected?: boolean;
-  color?: string;
-}
-
-function CustomIcon({ roleName, className, isSelected, color }: CustomIconProps) {
-  const [hasError, setHasError] = React.useState(false);
-  const iconPath = iconMapping[roleName as keyof typeof iconMapping];
-  const FallbackIcon = fallbackIcons[roleName as keyof typeof fallbackIcons];
-
-  if (hasError || !iconPath) {
-    return <FallbackIcon className={cn(className, isSelected && color)} aria-hidden="true" />;
-  }
-
-  return (
-    <img
-      src={iconPath}
-      alt={`${roleName} icon`}
-      width={24}
-      height={24}
-      className={cn(className, isSelected && color)}
-      aria-hidden="true"
-      onError={() => setHasError(true)}
-    />
-  );
-}
 
 const roleConfig = [
   { 
@@ -211,11 +162,10 @@ export function MainLayout({ children }: MainLayoutProps) {
                   aria-label="View all financial roles"
                 >
                   <div className="flex items-center space-x-2">
-                    <CustomIcon 
-                      roleName="all"
-                      className="h-6 w-6"
-                      isSelected={selectedRole === 'all'}
-                      color="text-green-600"
+                    <RoleIcon 
+                      type="all-roles"
+                      size={24}
+                      className={cn("h-6 w-6", selectedRole === 'all' && "text-green-600")}
                     />
                     <span className="truncate">All Roles</span>
                   </div>
@@ -235,11 +185,10 @@ export function MainLayout({ children }: MainLayoutProps) {
                       aria-label={`View ${role.displayName} financial role`}
                     >
                       <div className="flex items-center space-x-2">
-                        <CustomIcon 
-                          roleName={role.name}
-                          className="h-6 w-6"
-                          isSelected={selectedRole === role.name}
-                          color={role.color}
+                        <RoleIcon 
+                          type={role.name as any}
+                          size={24}
+                          className={cn("h-6 w-6", selectedRole === role.name && role.color)}
                         />
                         <span className="truncate">{role.displayName}</span>
                       </div>

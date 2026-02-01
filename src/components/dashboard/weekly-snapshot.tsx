@@ -6,18 +6,20 @@ import { Button } from '@/components/ui/button';
 import { 
   TrendingUp, 
   TrendingDown, 
-  DollarSign, 
-  Calendar,
+  Minus,
+  Wallet,
   Users,
   Zap,
-  Wallet,
   ArrowUpRight,
   ArrowDownRight,
+  Calendar,
+  DollarSign,
   BarChart3,
   Download
 } from 'lucide-react';
 import { useFinancialStore } from '@/stores/financial-store';
 import { useUIStore } from '@/stores/ui-store';
+import { RoleIcon } from '@/components/ui/role-icon';
 import { getRoleColor, getRoleCardClasses, getTuesdayAlertClasses } from '@/lib/role-colors';
 import { cn } from '@/lib/utils';
 
@@ -123,9 +125,17 @@ export function WeeklySnapshot() {
     transactionCount: number;
   }) => {
     const roleConfig = getRoleColor(role.name);
-    const Icon = role.name === 'personal' ? Wallet : 
-                  role.name === 'business' ? TrendingUp :
-                  role.name === 'chama' ? Users : Zap;
+    
+    // Map role names to RoleIcon types
+    const getRoleIconType = (roleName: string) => {
+      switch (roleName) {
+        case 'personal': return 'personal';
+        case 'business': return 'sky-tech';
+        case 'chama': return 'chama';
+        case 'sideincome': return 'side-income';
+        default: return 'personal';
+      }
+    };
 
     return (
       <Card className={cn("relative overflow-hidden", getRoleCardClasses(role.name))}>
@@ -135,7 +145,11 @@ export function WeeklySnapshot() {
         )} />
         <CardHeader className="pb-3">
           <div className="flex items-center space-x-2">
-            <Icon className={cn("h-4 w-4", roleConfig.text)} />
+            <RoleIcon 
+              type={getRoleIconType(role.name)}
+              size={16}
+              className={cn("h-4 w-4", roleConfig.text)}
+            />
             <CardTitle className="text-sm font-medium">{role.displayName}</CardTitle>
           </div>
         </CardHeader>
