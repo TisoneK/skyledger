@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ThemeToggle } from '@/components/theme-toggle';
@@ -21,11 +22,59 @@ import { useUIStore } from '@/stores/ui-store';
 import { cn } from '@/lib/utils';
 import { useRealTimeDate } from '@/hooks/use-real-time-date';
 
+// Icon mapping object with role-to-PNG-path associations
+const iconMapping = {
+  all: '/icons/sidebar/all-roles.png',
+  personal: '/icons/sidebar/personal.png',
+  'sky-tech': '/icons/sidebar/sky-tech.png',
+  chama: '/icons/sidebar/chama.png',
+  'side-income': '/icons/sidebar/side-income.png',
+};
+
+// Fallback Lucide icons
+const fallbackIcons = {
+  all: Wallet,
+  personal: Wallet,
+  'sky-tech': TrendingUp,
+  chama: Users,
+  'side-income': Zap,
+};
+
+// CustomIcon component with error handling and fallback
+interface CustomIconProps {
+  roleName: string;
+  className?: string;
+  isSelected?: boolean;
+  color?: string;
+}
+
+function CustomIcon({ roleName, className, isSelected, color }: CustomIconProps) {
+  const [hasError, setHasError] = React.useState(false);
+  const iconPath = iconMapping[roleName as keyof typeof iconMapping];
+  const FallbackIcon = fallbackIcons[roleName as keyof typeof fallbackIcons];
+
+  if (hasError || !iconPath) {
+    return <FallbackIcon className={cn(className, isSelected && color)} aria-hidden="true" />;
+  }
+
+  return (
+    <img
+      src={iconPath}
+      alt={`${roleName} icon`}
+      width={24}
+      height={24}
+      className={cn(className, isSelected && color)}
+      aria-hidden="true"
+      onError={() => setHasError(true)}
+    />
+  );
+}
+
 const roleConfig = [
   { 
     name: 'personal', 
     displayName: 'Personal', 
-    icon: Wallet, 
+    icon: 'personal', 
     color: 'text-blue-500',
     bgColor: 'bg-blue-50',
     borderColor: 'border-blue-200'
@@ -33,7 +82,7 @@ const roleConfig = [
   { 
     name: 'sky-tech', 
     displayName: 'Sky Tech', 
-    icon: TrendingUp, 
+    icon: 'sky-tech', 
     color: 'text-green-500',
     bgColor: 'bg-green-50',
     borderColor: 'border-green-200'
@@ -41,7 +90,7 @@ const roleConfig = [
   { 
     name: 'chama', 
     displayName: 'Chama', 
-    icon: Users, 
+    icon: 'chama', 
     color: 'text-amber-500',
     bgColor: 'bg-amber-50',
     borderColor: 'border-amber-200'
@@ -49,7 +98,7 @@ const roleConfig = [
   { 
     name: 'side-income', 
     displayName: 'Side Income', 
-    icon: Zap, 
+    icon: 'side-income', 
     color: 'text-purple-500',
     bgColor: 'bg-purple-50',
     borderColor: 'border-purple-200'
@@ -162,14 +211,18 @@ export function MainLayout({ children }: MainLayoutProps) {
                   aria-label="View all financial roles"
                 >
                   <div className="flex items-center space-x-2">
-                    <SkyLedgerIcon size={24} alt="All Roles" decorative />
+                    <CustomIcon 
+                      roleName="all"
+                      className="h-6 w-6"
+                      isSelected={selectedRole === 'all'}
+                      color="text-green-600"
+                    />
                     <span className="truncate">All Roles</span>
                   </div>
                 </Button>
 
                 {/* Individual Roles */}
                 {roleConfig.map((role) => {
-                  const Icon = role.icon;
                   return (
                     <Button
                       key={role.name}
@@ -182,7 +235,12 @@ export function MainLayout({ children }: MainLayoutProps) {
                       aria-label={`View ${role.displayName} financial role`}
                     >
                       <div className="flex items-center space-x-2">
-                        <Icon className={cn("h-6 w-6", selectedRole === role.name ? role.color : "")} aria-hidden="true" />
+                        <CustomIcon 
+                          roleName={role.name}
+                          className="h-6 w-6"
+                          isSelected={selectedRole === role.name}
+                          color={role.color}
+                        />
                         <span className="truncate">{role.displayName}</span>
                       </div>
                     </Button>
