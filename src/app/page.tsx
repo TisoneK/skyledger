@@ -3,7 +3,6 @@
 import React from 'react';
 import { MainLayout } from '@/components/layout/main-layout';
 import { WeeklySnapshot } from '@/components/dashboard/weekly-snapshot';
-import { QuickTransactionEntry } from '@/components/dashboard/quick-transaction-entry';
 import { AmIMovingForward } from '@/components/am-i-moving-forward';
 import { ChamaTargetTracker } from '@/components/chama-target-tracker';
 import { WeeklyTrends } from '@/components/charts/weekly-trends';
@@ -28,7 +27,6 @@ export default function Home() {
               {/* Left Column - Main Dashboard */}
               <div className="lg:col-span-2 space-y-6">
                 <WeeklySnapshot />
-                <QuickTransactionEntry />
               </div>
 
               {/* Right Column - Assessment & Tracking */}

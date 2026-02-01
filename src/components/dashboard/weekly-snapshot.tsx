@@ -6,16 +6,11 @@ import { Button } from '@/components/ui/button';
 import { 
   TrendingUp, 
   TrendingDown, 
-  Minus,
-  Wallet,
-  Users,
-  Zap,
   ArrowUpRight,
   ArrowDownRight,
   Calendar,
   DollarSign,
-  BarChart3,
-  Download
+  Users
 } from 'lucide-react';
 import { useFinancialStore } from '@/stores/financial-store';
 import { useUIStore } from '@/stores/ui-store';
@@ -270,32 +265,6 @@ export function WeeklySnapshot() {
           ))}
         </div>
       </div>
-
-      {/* Quick Actions */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Quick Actions</CardTitle>
-          <CardDescription>
-            Common tasks for this week
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-            <Button variant="outline" className="w-full justify-start">
-              <DollarSign className="h-4 w-4 mr-2" />
-              Add Transaction
-            </Button>
-            <Button variant="outline" className="w-full justify-start">
-              <BarChart3 className="h-4 w-4 mr-2" />
-              View Analytics
-            </Button>
-            <Button variant="ghost" className="w-full justify-start">
-              <Download className="h-4 w-4 mr-2" />
-              Export Report
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
     </div>
   );
 }

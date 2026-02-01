@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ThemeToggle } from '@/components/theme-toggle';
 import { SkyLedgerIcon } from '@/components/ui/skyledger-icon';
 import { RoleIcon } from '@/components/ui/role-icon';
+import { QuickActions } from '@/components/ui/quick-actions';
 import { 
   Wallet, 
   TrendingUp, 
@@ -120,6 +121,11 @@ export function MainLayout({ children }: MainLayoutProps) {
               <h1 className="text-xl font-bold text-green-600 leading-tight">SkyLedger</h1>
               <p className="text-xs text-muted-foreground hidden sm:block leading-tight">Your weekly financial mirror</p>
             </div>
+          </div>
+
+          {/* Quick Actions - Middle Section */}
+          <div className="flex-1 flex items-center justify-center px-4">
+            <QuickActions variant="header" />
           </div>
 
           {/* Right side with theme toggle and sync status */}
